@@ -47,7 +47,7 @@ if dispatch_files and usage_file is not None:
                     if "디버오더번호" in df.columns:
                         df["디버오더번호"] = pd.to_numeric(df["디버오더번호"], errors="coerce")
                         df = df[df["디버오더번호"].notna()].copy()
-                        df["디버오더번호"] = df["디버오der번호"].astype("Int64")
+                        df["디버오더번호"] = df["디버오더번호"].astype("Int64")
                         dispatch_list.append(df)
 
                 if not dispatch_list:
