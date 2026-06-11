@@ -5,15 +5,15 @@ from io import BytesIO
 
 st.set_page_config(page_title="디버 스멤구분 정산기", layout="centered")
 
-st.title("💰 디버 5월 정산 프로그램 (스멤구분)")
+st.title("디버 정산 프로그램 (스멤구분)")
 st.write("배차리스트 파일들과 디버 사용내역 파일을 업로드한 후 '정산 시작'을 눌러주세요.")
 
 st.markdown("---")
 
-# 1. 5월 폴더 내의 배차리스트 파일들 업로드 (여러 개 다중 선택 가능)
-st.subheader("1. 5월 폴더 안의 배차리스트 엑셀 파일들")
+# 1. 폴더 내의 배차리스트 파일들 업로드 (여러 개 다중 선택 가능)
+st.subheader("1. 폴더 안의 배차리스트 엑셀 파일들")
 dispatch_files = st.file_uploader(
-    "5월 폴더 안에 있던 모든 배차리스트 엑셀 파일들을 한 번에 선택해서 올려주세요.",
+    "폴더 안에 있던 모든 배차리스트 엑셀 파일들을 한 번에 선택해서 올려주세요.",
     type=["xlsx"],
     accept_multiple_files=True
 )
@@ -21,7 +21,7 @@ dispatch_files = st.file_uploader(
 # 2. 디버 사용내역 파일 업로드 (1개)
 st.subheader("2. 디버 사용내역 파일")
 usage_file = st.file_uploader(
-    "디버_사용내역_2026-05-01_2026-05-31.xlsx 파일을 올려주세요.",
+    "디버_사용내역_20xx-xx-xx_20xx-xx-xx.xlsx 파일을 올려주세요.",
     type=["xlsx"]
 )
 
@@ -31,7 +31,7 @@ st.markdown("---")
 if dispatch_files and usage_file is not None:
     st.success(f"배차리스트 {len(dispatch_files)}개 및 사용내역 파일 로드 완료!")
 
-    if st.button("🚀 정산 시작 및 결과 만들기"):
+    if st.button("정산 시작"):
         with st.spinner("기존 정산 로직을 실행 중입니다... 잠시만 기다려주세요."):
             try:
                 # [로직 1] 다중 업로드된 배차리스트 파일 합치기
@@ -137,7 +137,7 @@ if dispatch_files and usage_file is not None:
                 processed_data = output.getvalue()
 
                 st.balloons()
-                st.success("✨ 정산 가공 완료!")
+                st.success("정산 가공 완료!")
 
                 # 다운로드 버튼 출력
                 st.download_button(
@@ -150,4 +150,4 @@ if dispatch_files and usage_file is not None:
             except Exception as e:
                 st.error(f"정산 도중 에러가 발생했습니다: {e}")
 else:
-    st.info("💡 두 영역에 파일을 모두 추가하시면 '정산 시작' 버튼이 나타납니다.")
+    st.info("두 영역에 파일을 모두 추가하시면 '정산 시작' 버튼이 나타납니다.")
